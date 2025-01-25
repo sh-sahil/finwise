@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./db");
 const authRoutes = require("./routes/authRoutes");
 const formRoutes = require("./routes/form");
+const investmentRoutes = require("./routes/investmentRoutes");
 
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/form", formRoutes);
+app.use("/api/investments", investmentRoutes);
 
 // Root Endpoint
 app.get("/", (req, res) => {

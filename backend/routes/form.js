@@ -59,4 +59,28 @@ router.post("/", protect, async (req, res) => {
   }
 });
 
+router.get("/get-target", protect, async (req, res) => {
+  try {
+    // Find form data for the authenticated user
+    const forms = await FormUser.find({ user_id: req.user.id });
+
+    // Check if any form data exists
+    if (forms.length === 0) {
+      return res.status(404).json({ error: "No form data found for this user." });
+    }
+
+    // Access the first form entry (assuming there's only one form per user)
+    const form = forms[0];
+
+    // Extract the required fields
+    const target_amount = form.target_amount;
+    const user_goal = form.primary_financial_goal;
+
+    // Send the response
+    res.json({ target_amount, user_goal });
+  } catch (error) {
+    console.error("Error fetching form data:", error);
+    res.status(500).json({ error: "An error occurred while fetching form data." });
+  }
+});
 module.exports = router;

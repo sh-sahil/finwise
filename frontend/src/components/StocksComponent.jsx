@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const StocksComponent = () => {
-  const [showRealTime, setShowRealTime] = useState(false);
+  const [showRealTime, setShowRealTime] = useState(true);
   const [showHistorical, setShowHistorical] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const StocksComponent = () => {
 
       {showRealTime && (
         <iframe
-          src="http://localhost:8503"
+          src="http://localhost:8501"
           title="Stocks Real-Time Analysis"
           width="100%"
           height="100%"
@@ -32,7 +32,7 @@ const StocksComponent = () => {
 
       {showHistorical && (
         <iframe
-          src="http://localhost:8501"
+          src="http://localhost:8502"
           title="Stocks Historical Analysis"
           width="100%"
           height="100%"
