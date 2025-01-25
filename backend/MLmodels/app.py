@@ -123,10 +123,7 @@ def displayChart(ticker):
   else:
     st.write("No data available for the selected ticker or date.")
 
-  # Display recent news headlines
-  st.subheader("News")
-  for news in stockInfo.news:
-    st.write(f"{news['title']} | \n%s **| Published: {str(datetime.datetime.fromtimestamp(news['providerPublishTime']).strftime('%Y-%m-%d %H:%M:%S'))}**" % news['link'])
+
 
 # Display stock information for all selected tickers 
 def displayWatchlist():
