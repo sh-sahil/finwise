@@ -1,0 +1,44 @@
+.dashboard {
+    padding: 20px;
+    text-align: center;
+    height: 100vh; /* Full screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Spread content vertically */
+  }
+  
+  .box-container {
+    display: flex;
+    justify-content: space-around; /* Spread boxes horizontally */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    gap: 20px; /* Space between boxes */
+    margin-bottom: 20px;
+  }
+  
+  .box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    flex: 1 1 30%; /* Flexible width for responsiveness */
+    min-width: 200px; /* Minimum width for each box */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .box.active {
+    background-color: #f0f0f0;
+  }
+  
+  .component-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    flex-grow: 1; /* Take up remaining space */
+  }
+  
+  .component {
+    text-align: left;
+  }
+  
+  .section-title {
+    margin: 20px 0;
+  }
