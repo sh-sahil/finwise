@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StocksComponent from "./StocksComponent";
+// import GoldComponent from "./GoldComponent";
+import ChatWindow from "./ChatWindow"; // Import the ChatWindow component
+import Groq from "groq-sdk";
+import { GROQ_API } from "./config";
+import OtherInvestmentsComponent from "./OtherInvestmentsComponent";
+
+const groq = new Groq({ apiKey: GROQ_API, dangerouslyAllowBrowser: true });
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeBox, setActiveBox] = useState(1); // Default to Portfolio (id: 1)
+  const [showChat, setShowChat] = useState(false);
+  const [response, setResponse] = useState(""); // State to hold the AI response
+  const [prompt, setPrompt] = useState(""); // Prompt input for the chat
 
   const boxes = [
     { id: 1, title: "Portfolio", component: <PortfolioComponent /> },
@@ -17,12 +27,28 @@ const Dashboard = () => {
     { id: 9, title: "Other Investments", component: <OtherInvestmentsComponent /> },
   ];
 
-  const handleBoxClick = (id) => {
+  const handleBoxClick = id => {
     setActiveBox(id);
   };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleSendPrompt = async prompt => {
+    try {
+      if (prompt.trim()) {
+        const chatCompletion = await groq.chat.completions.create({
+          messages: [{ role: "user", content: prompt }],
+          model: "llama-3.3-70b-versatile",
+        });
+        const aiResponse = chatCompletion.choices[0]?.message?.content || "";
+        setResponse(aiResponse); // Set the AI response in the state
+        setPrompt(""); // Clear the prompt input after sending
+      }
+    } catch (error) {
+      console.error("Error sending prompt to Groq AI:", error);
+    }
   };
 
   return (
@@ -55,7 +81,7 @@ const Dashboard = () => {
         }`}
       >
         <ul className="mt-10">
-          {boxes.map((box) => (
+          {boxes.map(box => (
             <li
               key={box.id}
               className={`p-3 cursor-pointer rounded-lg mb-2 ${
@@ -72,16 +98,35 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div
-        className={`flex-1 p-6 transition-all duration-300 ${
-          isSidebarOpen ? "ml-64" : "ml-0"
-        }`}
-      >
+      <div className={`flex-1 p-6 transition-all duration-300 ${isSidebarOpen ? "ml-64" : "ml-0"}`}>
         <h1 className="text-3xl font-bold text-gray-800 mb-6 ml-11">Personalized Dashboard</h1>
         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
-          {boxes.find((box) => box.id === activeBox).component}
+          {boxes.find(box => box.id === activeBox).component}
         </div>
       </div>
+
+      {/* Chat Icon and Chat Window */}
+      <ChatIcon onClick={() => setShowChat(true)} />
+      {showChat && (
+        <ChatWindow
+          onClose={() => setShowChat(false)}
+          onSend={handleSendPrompt}
+          response={response}
+          prompt={prompt}
+          setPrompt={setPrompt}
+        />
+      )}
+    </div>
+  );
+};
+
+const ChatIcon = ({ onClick }) => {
+  return (
+    <div
+      onClick={onClick}
+      className="fixed bottom-4 right-4 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:bg-blue-600"
+    >
+      💬
     </div>
   );
 };
@@ -108,6 +153,10 @@ const AnalysisComponent = () => (
   </div>
 );
 
+const GoldComponent = () => {
+  return <div>this is dashboard</div>;
+};
+
 const FdsRdsComponent = () => (
   <div className="text-center">
     <h3 className="text-2xl font-semibold text-gray-700">FDs and RDs</h3>
@@ -122,24 +171,10 @@ const MutualFundsComponent = () => (
   </div>
 );
 
-const GoldComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Gold</h3>
-    <p className="text-gray-500">Monitor your gold investments.</p>
-  </div>
-);
-
 const PropertyComponent = () => (
   <div className="text-center">
     <h3 className="text-2xl font-semibold text-gray-700">Property</h3>
     <p className="text-gray-500">Manage your real estate investments.</p>
-  </div>
-);
-
-const OtherInvestmentsComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Other Investments</h3>
-    <p className="text-gray-500">Explore other investment opportunities.</p>
   </div>
 );
 
