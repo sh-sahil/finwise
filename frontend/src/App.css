@@ -27,6 +27,7 @@ header img {
 header h1 {
   font-size: 1.75rem;
   font-weight: bold;
+  font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 header button {
@@ -169,4 +170,13 @@ footer p {
   section h3 {
     font-size: 2rem;
   }
+}
+/* Custom gradient background */
+.bg-gradient-app {
+  background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+}
+
+/* Button hover effects */
+button {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
