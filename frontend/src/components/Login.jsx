@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const location = useLocation();
-  const initialSignUpState = location.state?.isSignup || false;
-  const [isSignUp, setIsSignUp] = useState(initialSignUpState);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -29,7 +27,7 @@ const Login = () => {
           password: formData.password,
         });
         alert("Registration successful!");
-        setIsSignUp(false); // Navigate to login page after signup
+        navigate('/form'); // Navigate to form page after signup
       } else {
         // Login user
         const { data } = await axios.post("http://localhost:5000/api/auth/login", {
@@ -82,38 +80,37 @@ const Login = () => {
           </div>
 
           <div className="mb-4">
-  <label className="block text-sm font-medium text-gray-600">Password</label>
-  <input
-    type="password"
-    name="password"
-    value={formData.password}
-    onChange={handleChange}
-    className="w-full px-4 py-2 mt-1 text-gray-700 bg-gray-100 rounded focus:outline-none focus:ring"
-    placeholder="Enter your password"
-    required
-  />
-</div>
+            <label className="block text-sm font-medium text-gray-600">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 mt-1 text-gray-700 bg-gray-100 rounded focus:outline-none focus:ring"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
 
-<button
-  type="submit"
-  className="w-full px-4 py-2 text-white bg-black rounded hover:bg-gray-800 focus:outline-none"
->
-  {isSignUp ? "Sign Up" : "Login"}
-</button>
-</form>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-black rounded hover:bg-gray-800 focus:outline-none"
+          >
+            {isSignUp ? "Sign Up" : "Login"}
+          </button>
+        </form>
 
-<p className="mt-4 text-sm text-center text-gray-600">
-  {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-  <button
-    onClick={() => setIsSignUp(!isSignUp)}
-    className="text-blue-500 hover:underline"
-  >
-    {isSignUp ? "Login here" : "Sign up here"}
-  </button>
-</p>
-
-</div>
-</div>
+        <p className="mt-4 text-sm text-center text-gray-600">
+          {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
+          <button
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="text-blue-500 hover:underline"
+          >
+            {isSignUp ? "Login here" : "Sign up here"}
+          </button>
+        </p>
+      </div>
+    </div>
   );
 };
 
