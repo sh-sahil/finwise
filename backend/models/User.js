@@ -16,6 +16,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    isFormCompleted: {
+      type: Boolean,
+      default: false,
+    },
+
   },
   { timestamps: true }
 );

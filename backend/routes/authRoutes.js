@@ -75,4 +75,17 @@ router.get("/profile", protect, async (req, res) => {
   }
 });
 
+router.get('/is-form-submitted', protect, async (req, res) => {
+  const user = await User.findById(req.user.id);
+
+  if (user) {
+    res.json({
+      isFormCompleted: user.isFormCompleted,
+    });
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+} );
+
+
 module.exports = router;
