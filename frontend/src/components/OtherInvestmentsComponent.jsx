@@ -9,6 +9,7 @@ function OtherInvestmentsComponent() {
       {/* Bonds Section */}
       <div className="section">
         <h2>Bonds</h2>
+        <img src="./bonds.jpg" alt="Bonds" className="investment-image" />
         <h3>What are Bonds?</h3>
         <p>
           Bonds are debt securities issued by companies or governments to raise capital. When you
@@ -32,11 +33,24 @@ function OtherInvestmentsComponent() {
 
         <h3>Ideal For:</h3>
         <p>Conservative investors seeking stable income with lower risk.</p>
+
+        {/* Embedded Video */}
+        <div className="video-container">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/5xUeB9B9k8A"
+            title="Bonds Explained"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
 
       {/* Cryptocurrency Section */}
       <div className="section">
         <h2>Cryptocurrency</h2>
+        <img src="./crypto.jpg" alt="Cryptocurrency" className="investment-image" />
         <h3>What is Cryptocurrency?</h3>
         <p>
           Cryptocurrencies are digital or virtual currencies that use cryptography for security.
@@ -66,11 +80,24 @@ function OtherInvestmentsComponent() {
           Investors willing to take high risks in pursuit of potentially high returns and
           comfortable with the volatility and uncertainty of the market.
         </p>
+
+        {/* Embedded Video */}
+        <div className="video-container">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/Yb6825iv0Vk"
+            title="Cryptocurrency Explained"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
 
       {/* ETFs Section */}
       <div className="section">
         <h2>Exchange-Traded Funds (ETFs)</h2>
+        <img src="./etfs.jpg" alt="ETFs" className="investment-image" />
         <h3>What are ETFs?</h3>
         <p>
           ETFs are investment funds that hold a collection of assets, such as stocks or bonds, and
@@ -96,11 +123,24 @@ function OtherInvestmentsComponent() {
 
         <h3>Ideal For:</h3>
         <p>Investors looking for low-cost diversification with easy access to markets.</p>
+
+        {/* Embedded Video */}
+        <div className="video-container">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/7g6gPm4n0mI"
+            title="ETFs Explained"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
 
       {/* Commodities Section */}
       <div className="section">
         <h2>Commodities (e.g., Oil, Silver, etc.)</h2>
+        <img src="./commodities.jpg" alt="Commodities" className="investment-image" />
         <h3>What Are Commodities?</h3>
         <p>
           Commodities include physical goods like oil, agricultural products, metals (silver,
@@ -126,6 +166,18 @@ function OtherInvestmentsComponent() {
 
         <h3>Ideal For:</h3>
         <p>Investors looking to hedge against inflation and diversify their portfolios.</p>
+
+        {/* Embedded Video */}
+        <div className="video-container">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/2QnM6QN7l7k"
+            title="Commodities Explained"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
     </div>
   );

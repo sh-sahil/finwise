@@ -39,7 +39,7 @@ const GoldComponent = () => {
         <div className="text-gray-400 text-lg">Loading...</div>
       ) : (
         <div className="w-full max-w-md bg-gray-800 p-6 rounded-2xl shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Rates (Base: INR)</h2>
+          <h2 className="text-xl text-white font-semibold mb-4">Rates (Base: INR)</h2>
           <div className="flex justify-between mb-2"></div>
           <div className="flex justify-between mb-2">
             <span>Gold (XAU):</span>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Login from "./Login";  // Import Login component
+import Login from "./Login"; // Import Login component
 
 const Navbar = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -10,7 +10,11 @@ const Navbar = () => {
 
   return (
     <>
-      <div className={`min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-gray-900 ${isLoginVisible ? 'overflow-hidden' : ''}`}>
+      <div
+        className={`min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-gray-900 ${
+          isLoginVisible ? "overflow-hidden" : ""
+        }`}
+      >
         {/* Navigation */}
         <nav className="w-full  flex items-center justify-between">
           <header className="shadow-md w-full">
@@ -19,12 +23,6 @@ const Navbar = () => {
               <h1 className="text-2xl font-bold text-white">FinWise</h1>
 
               {/* Navigation Menu */}
-              <nav className="flex items-center space-x-6">
-                <button className="text-white font-medium hover:underline">Home</button>
-                <button className="text-white font-medium hover:underline">About</button>
-                <button className="text-white font-medium hover:underline">Services</button>
-              </nav>
-
               {/* Auth Buttons */}
               <div className="flex items-center space-x-4">
                 <button
@@ -54,16 +52,19 @@ const Navbar = () => {
               </h1>
 
               <p className="text-gray-300 text-lg">
-                FinWise is your AI-powered personal financial advisor, helping you
-                make informed investment decisions tailored to your unique financial
-                goals.
+                FinWise is your AI-powered personal financial advisor, helping you make informed
+                investment decisions tailored to your unique financial goals.
               </p>
 
               <div className="space-y-8">
                 <div className="flex items-center gap-4">
-                  <button id="green1" className="bg-lime-400 hover:bg-lime-500  text-gray-900 px-8 py-2 rounded-lg text-2xl">
-                    
-                    <Link onClick={showLogin} className="font-weight-extrabold">Get Started</Link>
+                  <button
+                    id="green1"
+                    className="bg-lime-400 hover:bg-lime-500  text-gray-900 px-8 py-2 rounded-lg text-2xl"
+                  >
+                    <Link onClick={showLogin} className="font-weight-extrabold">
+                      Get Started
+                    </Link>
                   </button>
                   <div className="flex -space-x-4">
                     {[...Array(4)].map((_, i) => (
@@ -75,19 +76,6 @@ const Navbar = () => {
                     <div className="w-10 h-10 rounded-full border-2 border-white bg-gray-800 flex items-center justify-center text-white text-sm">
                       100+
                     </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-12">
-                  <div className="flex items-center gap-2">
-                    <div>
-                      <div className="text-2xl font-bold text-white">$12M+</div>
-                      <div className="text-gray-400 text-sm">Transactions</div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-white">1200+</div>
-                    <div className="text-gray-400 text-sm">Active Users</div>
                   </div>
                 </div>
               </div>
@@ -111,7 +99,8 @@ const Navbar = () => {
               {
                 number: "1",
                 title: "Real-Time Analysis",
-                description: "Get real-time insights into your financial data for better decision making.",
+                description:
+                  "Get real-time insights into your financial data for better decision making.",
               },
               {
                 number: "2",
@@ -137,7 +126,8 @@ const Navbar = () => {
           <div className="text-center mt-16">
             <h4 className="text-xl font-semibold text-white mb-4">Contact Us</h4>
             <p className="text-gray-400">
-              Have questions? Reach out to our support team at support@payfast.com or call us at (123) 456-7890.
+              Have questions? Reach out to our support team at support@payfast.com or call us at
+              (123) 456-7890.
             </p>
           </div>
         </section>
