@@ -83,4 +83,23 @@ router.get("/get-target", protect, async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching form data." });
   }
 });
+
+
+router.get("/data", protect, async (req, res) => {
+  try {
+    // Find form data for the authenticated user
+    const forms = await FormUser.find({ user_id: req.user.id });
+
+    if (forms.length === 0) {
+      return res.status(404).json({ error: "No form data found for this user." });
+    }
+
+    const form = forms[0];
+
+    res.json(form);
+  } catch (error) {
+    console.error("Error fetching form data:", error);
+    res.status(500).json({ error: "An error occurred while fetching form data." });
+  }
+});
 module.exports = router;

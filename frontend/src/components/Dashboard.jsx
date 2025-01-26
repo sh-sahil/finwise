@@ -7,6 +7,7 @@ import Groq from "groq-sdk";
 import { GROQ_API } from "./config";
 import OtherInvestmentsComponent from "./OtherInvestmentsComponent";
 import FdsRdsComponent from "./FdsRdsComponent";
+import RecomSystem from "./RecomSystem";
 
 const groq = new Groq({ apiKey: GROQ_API, dangerouslyAllowBrowser: true });
 
@@ -19,11 +20,10 @@ const Dashboard = () => {
 
   const boxes = [
     { id: 1, title: "Portfolio", component: <PortfolioComponent /> },
-    { id: 2, title: "Goal", component: <GoalComponent /> },
-    { id: 3, title: "Analysis", component: <AnalysisComponent /> },
-    { id: 4, title: "Stocks", component: <StocksComponent /> },
-    { id: 5, title: "FDs and RDs", component: <FdsRdsComponent /> },
-    { id: 6, title: "Mutual Funds", component: <MutualFundsComponent /> },
+    { id: 2, title: "Recommendation", component: <RecomSystem />},
+    { id: 3, title: "Goal", component: <GoalComponent /> },
+    { id: 5, title: "Stocks", component: <StocksComponent /> },
+    { id: 6, title: "FDs and RDs", component: <FdsRdsComponent /> },
     { id: 7, title: "Gold", component: <GoldComponent /> },
     { id: 8, title: "Property", component: <PropertyComponent /> },
     { id: 9, title: "Other Investments", component: <OtherInvestmentsComponent /> },
@@ -141,13 +141,6 @@ const PortfolioComponent = () => (
   </div>
 );
 
-
-const AnalysisComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Analysis</h3>
-    <p className="text-gray-500">Analyze your investment performance.</p>
-  </div>
-);
 
 const GoldComponent = () => {
   return <div>this is dashboard</div>;
