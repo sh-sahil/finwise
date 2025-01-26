@@ -7,6 +7,10 @@ import Groq from "groq-sdk";
 import { GROQ_API } from "./config";
 import OtherInvestmentsComponent from "./OtherInvestmentsComponent";
 import FdsRdsComponent from "./FdsRdsComponent";
+import PropertyComponent from "./PropertyComponent";
+import PortfolioComponent from "./PortfolioComponent";
+import RecomSystem from "./RecomSystem";
+import { useNavigate } from "react-router-dom";
 
 const groq = new Groq({ apiKey: GROQ_API, dangerouslyAllowBrowser: true });
 
@@ -15,15 +19,15 @@ const Dashboard = () => {
   const [activeBox, setActiveBox] = useState(1); // Default to Portfolio (id: 1)
   const [showChat, setShowChat] = useState(false);
   const [response, setResponse] = useState(""); // State to hold the AI response
-  const [prompt, setPrompt] = useState(""); // Prompt input for the chat
+  const [prompt, setPrompt] = useState(""); // Prompt input for the chat4
+  const naviagte = useNavigate();
 
   const boxes = [
     { id: 1, title: "Portfolio", component: <PortfolioComponent /> },
-    { id: 2, title: "Goal", component: <GoalComponent /> },
-    { id: 3, title: "Analysis", component: <AnalysisComponent /> },
-    { id: 4, title: "Stocks", component: <StocksComponent /> },
-    { id: 5, title: "FDs and RDs", component: <FdsRdsComponent /> },
-    { id: 6, title: "Mutual Funds", component: <MutualFundsComponent /> },
+    { id: 2, title: "Recommendation", component: <RecomSystem /> },
+    { id: 3, title: "Goal", component: <GoalComponent /> },
+    { id: 5, title: "Stocks", component: <StocksComponent /> },
+    { id: 6, title: "FDs and RDs", component: <FdsRdsComponent /> },
     { id: 7, title: "Gold", component: <GoldComponent /> },
     { id: 8, title: "Property", component: <PropertyComponent /> },
     { id: 9, title: "Other Investments", component: <OtherInvestmentsComponent /> },
@@ -51,6 +55,13 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Error sending prompt to Groq AI:", error);
     }
+  };
+
+  const handleSignOut = () => {
+    // Logic to sign out the user, e.g., clearing tokens, redirecting, etc.
+    localStorage.removeItem("token");
+    console.log("User signed out");
+    navigate("/ ");
   };
 
   return (
@@ -86,7 +97,7 @@ const Dashboard = () => {
           {boxes.map(box => (
             <li
               key={box.id}
-              className={`p-3 cursor-pointer rounded-lg mb-2 ${
+              className={`p-3 cursor-pointer rounded-lg mb-2 list-none ${
                 activeBox === box.id
                   ? "bg-blue-100 text-blue-700"
                   : "text-gray-700 hover:bg-gray-100"
@@ -97,6 +108,13 @@ const Dashboard = () => {
             </li>
           ))}
         </ul>
+        {/* Sign Out Button */}
+        <button
+          onClick={handleSignOut}
+          className="mt-[220px] w-full py-2 px-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors"
+        >
+          Sign Out
+        </button>
       </div>
 
       {/* Main Content */}
@@ -133,39 +151,8 @@ const ChatIcon = ({ onClick }) => {
   );
 };
 
-// Components (unchanged)
-const PortfolioComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Portfolio</h3>
-    <p className="text-gray-500">View and manage your investment portfolio.</p>
-  </div>
-);
-
-
-const AnalysisComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Analysis</h3>
-    <p className="text-gray-500">Analyze your investment performance.</p>
-  </div>
-);
-
 const GoldComponent = () => {
   return <div>this is dashboard</div>;
 };
-
-
-const MutualFundsComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Mutual Funds</h3>
-    <p className="text-gray-500">Track and invest in mutual funds.</p>
-  </div>
-);
-
-const PropertyComponent = () => (
-  <div className="text-center">
-    <h3 className="text-2xl font-semibold text-gray-700">Property</h3>
-    <p className="text-gray-500">Manage your real estate investments.</p>
-  </div>
-);
 
 export default Dashboard;

@@ -1,6 +1,7 @@
 const express = require("express");
 const { protect } = require("../middleware/authMiddleware"); // Authentication middleware
 const Investment = require("../models/Investment"); // Investment model
+const User = require("../models/User"); // User model
 
 const router = express.Router();
 
@@ -59,10 +60,10 @@ router.patch("/:id", protect, async (req, res) => {
     // Find the investment by ID and update
     const updatedInvestment = await Investment.findOneAndUpdate(
       { _id: req.params.id, user_id: req.user.id }, // Ensure the user can only update their own investments
-      { 
-        total_investment, 
-        rate_of_interest, 
-        duration, 
+      {
+        total_investment,
+        rate_of_interest,
+        duration,
         updated_at: Date.now(), // Update the timestamp
       },
       { new: true } // Return the updated document
@@ -79,4 +80,32 @@ router.patch("/:id", protect, async (req, res) => {
   }
 });
 
+router.delete("/:id", protect, async (req, res) => {
+  try {
+    // Find and delete the investment, ensuring it belongs to the logged-in user
+    const deletedInvestment = await Investment.findOneAndDelete({
+      _id: req.params.id,
+      user_id: req.user.id,
+    });
+
+    if (!deletedInvestment) {
+      return res.status(404).json({ error: "Investment not found or unauthorized." });
+    }
+
+    res.json({ message: "Investment deleted successfully.", data: deletedInvestment });
+  } catch (error) {
+    console.error("Error deleting investment:", error);
+    res.status(500).json({ error: "An error occurred while deleting investment data." });
+  }
+});
+
+router.get("/profile", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.json({ user: user });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ error: "An error occurred while fetching user data." });
+  }
+});
 module.exports = router;
